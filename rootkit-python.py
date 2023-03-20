@@ -1,13 +1,13 @@
 import wmi
 from win10toast import ToastNotifier
 
-# Función para ocultar el servicio
+# Function to hide the service
 def hide_service(service_name):
     c = wmi.WMI()
     service = c.Win32_Service(Name=service_name)
     result, = service[0].Modify(servicesStartName='')
 
-# Función para monitorear los servicios de Windows
+# Function to monitor Windows services
 def monitor_services():
     c = wmi.WMI()
     process_watcher = c.Win32_Process.watch_for("Creation")
@@ -22,14 +22,14 @@ def monitor_services():
         except:
             continue
 
-# Nombre del servicio que se desea ocultar
+# Name of the service you want to hide
 service_name = "Code.exe"
 
-#Funcion de notificaciones
+#Funcion of notifications
 toaster = ToastNotifier()
 
-# Ocultar el servicio
+# Hide the service
 hide_service(service_name)
 
-# Monitorear los servicios
+# Monitor services
 monitor_services()
